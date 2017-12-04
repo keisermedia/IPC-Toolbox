@@ -10,7 +10,7 @@
 
 		var defaults = {
 
-			version: 	'1.0.0',
+			version: 	'1.0',
 			gitURL: 	'https://api.github.com/repos',
 			gitOwner:	'keisermedia',
 			gitRepo:	'ipc-toolbox',
@@ -43,7 +43,9 @@
 				type:	'GET',
 				success: function( data ) {
 
-					return check_release( data, version );
+					check_release( data, version );
+					document.getElementById('latest-release').removeAttribute('class');
+					return;
 
 				},
 				error: function( xhr, ajaxOptions, thrownError ) {
@@ -59,10 +61,10 @@
 	}
 
 	function check_release( data, version ) {
-
+console.log(data);
 		var current = document.getElementById('latest-release');
-console.log(Object.keys(data).length);
-		if( empty(Object.keys(data).length) || ( 0 === Object.keys(data).length && data.constructor === Object ) )
+
+		if( 0 === Object.keys(data).length && data.constructor === Object )
 			return current.innerText ='Release information not available.';
 
 		if( isSemVer( version, data.tag_name ) )
@@ -76,11 +78,20 @@ console.log(Object.keys(data).length);
 			link.href		= data.zipball_url;
 			link.target 	= '_blank';
 
-			alert('Do NOT continue to use this version. There is a new version of the IPC Toolbox.');
+			if( window.confirm( 'Do NOT continue to use this version. There is a new version of the IPC Toolbox. Click "ok" to download the latest version.') ) {
+
+				location.href = data.zipball_url;
+
+			};
 
 			current.innerText = '';
 
 			return current.appendChild(link);
+
+		} else {
+
+			return current.innerText = data.tag_name;
+
 		}
 	}
 
