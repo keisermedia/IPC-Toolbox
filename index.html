@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>IPC of Nevada</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/materialize-stepper.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+	<nav class="light-blue lighten-1" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">IPC of Nevada</a>
+			<ul class="right hide-on-med-and-down">
+				<li><button id="reset-toolbox" class="btn waves-effect waves-teal btn-flat teal lighten-2 white-text" data-ipc-tool="#toolbox-intro">Reset Tools</button></li>
+			</ul>
+
+			<ul id="nav-mobile" class="side-nav">
+				<!--<li><a href="#">Navbar Link</a></li>-->
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
+	<div id="toolbox-intro" class="tool">
+		<div>
+			<br /><br />
+			<h1 class="header center white-text">Report Toolbox</h1>
+			<div class="row center">
+				<h5 class="header col s12 light white-text">Select a tool to begin:</h5>
+			</div>
+			<div class="row center">
+				<div class="btn-group">
+					<button class="btn btn-large waves-effect waves-light blue" data-ipc-tool="#format-data">Format Policy</button>
+					<span data-divider-label="Or"></span>
+					<button class="btn btn-large waves-effect waves-light teal lighten-2" data-ipc-tool="#generate-report">Generate Report</button>
+					<span data-divider-label="Or"></span>
+					<button class="btn btn-large waves-effect waves-light green lighten-2" data-ipc-tool="#revise-report">Revise Report</button>
+				</div>
+			</div>
+			<br /><br />
+		</div>
+	</div>
+	<div id="format-data" class="tool">
+		<div class="container">
+			<br /><br />
+			<ul id="format-data-stepper" data-method="GET" class="stepper horizontal linear">
+				<li class="step active">
+					<div class="step-title waves-effect">Unformatted Data</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="col s12">
+								<div class="row">
+									<p class="card-panel teal lighten-2 white-text">Generate a new document within EPIC using the Arch Data template. Once the document is generated, press <code>ctrl + A</code> to select all of the data and then press <code>ctrl + C</code> to copy the data and then <code>ctrl + v</code> to paste the code in the text area below.</p>
+									<div class="input-field col s12">
+										<textarea id="policy_raw_data" name="policy_raw_data"  class="materialize-textarea valdiate" required></textarea>
+										<label for="policy_raw_data">Unformatted Data</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="validate_raw_data">CONTINUE</button>
+						</div>
+					</div>
+				</li>
+				<li class="step">
+					<div class="step-title waves-effect">Questions</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="col m6 s12">
+								<div class="input-field">
+									<select id="policy-transaction-type-cd" class="validate" required>
+										<option disabled selected>Choose your option</option>
+										<option value="NB">New Binder</option>
+										<option value="RB">Renewal</option>
+										<option value="EN">Endorsement</option>
+										<option value="RI">Policy Reinstatement</option>
+										<option value="CN">Cancellation</option>
+									</select>
+									<label>Policy Transaction Type</label>
+								</div>
+								<div class="input-field">
+									<select id="policy-status-cd" class="validate" required>
+										<option value="BND">Bound</option>
+										<option value="CAN">Cancelled</option>
+									</select>
+									<label>Policy Status</label>
+								</div>
+								<div class="input-field">
+									<select id="amendment-reason-cd" class="validate" required>
+										<option value="">None</option>
+										<option value="ERP">Add ERP/Run-Off</option>
+										<option value="CRW">Cancel/Rewrite</option>
+										<option value="EXT">Policy Extension</option>
+										<option value="RI">Reinstatement</option>
+									</select>
+									<label>Amendment Reason</label>
+								</div>
+								<div class="input-field">
+									<select id="cancellation-type-cd" class="validate">
+										<option disabled selected>Choose your option</option>
+										<option value="F">Flat</option>
+										<!--<option value="O">Override Return Premium</option>-->
+										<option value="P">Pro Rata</option>
+										<option value="S">Short Rate</option>
+										<option value="M">Subject to Minimum Earned Premium</option>
+									</select>
+									<label>Cancellation Type</label>
+								</div>
+								<div class="col s6">
+									<label for="transaction-eff-dt">Transaction Effective Date</label>
+									<input id="transaction-eff-dt" type="date" class="datepicker" required />
+								</div>
+								<div class="col s6">
+									<label for="transaction-exp-dt">Transaction Expiration Date</label>
+									<input id="transaction-exp-dt" type="date" class="datepicker" />
+								</div>
+							</div>
+							<div class=" col m6 s12">
+								<div class="input-field">
+									<select id="primary-excess-cd" class="validate" required>
+										<option value="1">Primary</option>
+										<option value="5">Excess</option>
+									</select>
+									<label>Policy Type</label>
+								</div>
+								<div class="input-field">
+									<select id="exposure-application-cd" class="validate" required>
+										<option value="SALES">Gross Sales / 1000</option>
+										<option value="VEHICLES">Vehicles</option>
+										<option value="EACH">Each Employee</option>
+									</select>
+									<label>Exposure Application Type</label>
+								</div>
+								<div class="input-field col s6">
+									<input value="0.00" id="transaction-gross-premium-amt" type="text" class="validate" required />
+									<label class="active" for="transaction-gross-premium-amt">Premium Amount</label>
+								</div>
+								<div class="input-field col s6">
+									<input value="0.00" id="transaction-commission-amt" type="text" class="validate" required />
+									<label class="active" for="transaction-commission-amt">Commission Amount</label>
+								</div>
+								<div class="input-field col m6 s12">
+									<input value="21.5" id="commission-per" min="0" step=".5" type="number" class="validate">
+									<label class="active" for="commission-per">Commission Percentage</label>
+								</div>
+								<div class="input-field col m6 s12">
+									<input value="0" id="endorsement-no" min="0" type="number" class="validate">
+									<label class="active" for="endorsement-no">Endorsement Number</label>
+								</div>
+							</div>
+							<!--<div class="input-field col m6 s12">
+								<input value="0" id="claims-made-ind" min="0" max="9" step="1" type="number" class="validate">
+								<label class="active" for="claims-made-ind">Claims Made</label>
+							</div>-->
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="validate_form_data">CONTINUE</button>
+							<button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+						</div>
+					</div>
+				</li>
+				<li class="step">
+					<div class="step-title waves-effect">Formatted Data</div>
+					<div class="step-content">
+						<div class="row">
+							<form class="col s12">
+								<div class="row">
+									<div class="input-field col s12">
+										<a id="copy-button" class="btn waves-effect waves-light" data-clipboard-target="#formatted_data">Copy
+											<i class="material-icons right">input</i>
+										</a>
+										<pre id="formatted_data" class="card-panel blue-grey white-text"></pre>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="generate-report" class="tool">
+		<div class="container">
+		<ul id="generate-report-stepper" data-method="GET" class="stepper horizontal linear">
+				<li class="step active">
+					<div class="step-title waves-effect">Date Filtering</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="col s12">
+								<div class="row">
+									<p class="card-panel teal lighten-2 white-text">Select a date range to filter the data.</p>
+									<div class="col m6 s12">
+										<label for="date-range-start">Report Start Date</label>
+										<input id="date-range-start" type="date" class="datepicker" required />
+									</div>
+									<div class="col m6 s12">
+										<label for="date-range-end">Report End Date</label>
+										<input id="date-range-end" type="date" class="datepicker" required />
+									</div>
+									<br /><br />
+									<div class="file-field input-field col s12">
+										<div class="btn">
+											<span>File</span>
+											<input id="submitted-csv" type="file" required />
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="process_csv">CONTINUE</button>
+						</div>
+					</div>
+				</li>
+				<li class="step">
+					<div class="step-title waves-effect">Statistics</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="col m6 s12">
+								<p class="card-panel teal lighten-2 white-text">
+									<strong>Header Count:</strong> <span id="header-count">0</span><br />
+									<strong>Risk Unit Count:</strong> <span id="unit-count">0</span><br />
+									<strong>Coverage Count:</strong> <span id="coverage-count">0</span><br />
+									<strong>Rating Count:</strong> <span id="rating-count">0</span><br />
+								</p>
+							</div>
+							<div class=" col m6 s12">
+								<p class="card-panel teal lighten-2 white-text">
+									<strong>Total Premium:</strong> <span id="total-premium">0</span><br />
+									<strong>Total Commission:</strong> <span id="total-commission">0</span><br />
+								</p>
+							</div>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="generate_report">Generate Report</button>
+							<button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="revise-report" class="tool">
+		<div class="container">
+		<ul id="revise-report-stepper" data-method="GET" class="stepper horizontal linear">
+				<li class="step active">
+					<div class="step-title waves-effect">Select Report</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="col s12">
+								<div class="row">
+									<p class="card-panel teal lighten-2 white-text">Select a pre-generated report that you want to modify.</p>
+									<div class="file-field input-field col s12">
+										<div class="btn">
+											<span>File</span>
+											<input id="submitted-report" type="file" required />
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="revise_report">CONTINUE</button>
+						</div>
+					</div>
+				</li>
+				<li class="step">
+					<div class="step-title waves-effect">Modify Fields</div>
+					<div class="step-content">
+						<div class="row">
+							<div class="cols12">
+								<p class="card-panel teal lighten-2 white-text">
+								</p>
+								<br /><br />
+							</div>
+							<div class="input-field col m3 s6">
+								<input placeholder="Filter" class="light-table-filter" data-table="order-table" type="search">
+								<label for="report-filter">Filter</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<table id="report-data" class="highlight order-table table">
+									<thead>
+										<tr>
+											<th>Line</th>
+											<th>Policy Number</th>
+											<th>Entity</th>
+											<th>Field Name</th>
+											<th>Value</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="step-actions">
+							<button class="waves-effect waves-dark btn next-step" data-feedback="generate_revised_report">Revise Report</button>
+							<button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<div class="section">
+
+			<!--   Icon Section   -->
+			<div class="row">
+
+				<div class="col s12 m6">
+					<div class="icon-block">
+						<h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+						<h5 class="center"></h5>
+
+						<p class="light"></p>
+					</div>
+				</div>
+
+				<div class="col s12 m6">
+					<div class="icon-block">
+						<h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+						<h5 class="center"></h5>
+
+						<p class="light"></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<br><br>
+
+		<div class="section">
+
+		</div>
+	</div>
+
+	<footer class="page-footer orange">
+		<div class="container">
+			<div class="row">
+				<div id="release-check" class="col l6 s12">
+					<h5 class="white-text">About Report Toolbox</h5>
+					<div class="grey-text text-lighten-4">
+						<strong>App Version: </strong><span id="app-version"></span><br />
+						<strong>Latest Release: </strong><span id="latest-release"></span>
+					</div>
+
+
+				</div>
+				<div class="col l3 s12">
+				</div>
+				<div class="col l3 s12">
+					<h5 class="white-text">Resources</h5>
+					<ul>
+						<li><a class="white-text" href="http://materializecss.com" target="_blank">Materialize v0.100.1</a></li>
+						<li><a class="white-text" href="https://kinark.github.io/Materialize-stepper/" target="_blank">Materialize Stepper v2.1</a></li>
+						<li><a class="white-text" href="https://jqueryvalidation.org/" target="_blank">jQuery Validation v1.16.0</a></li>
+						<li><a class="white-text" href="http://papaparse.com/" target="_blank">Papa Parse v4.1.2</a></li>
+						<li><a class="white-text" href="https://zenorocha.github.io/clipboard.js" target="_blank">clipboard.js v1.6.1</a></li>
+						<li><a class="white-text" href="http://openexchangerates.github.io/accounting.js/" target="_blank">Accounting.js v0.4.2</a></li>
+						<li><a class="white-text" href="https://codepen.io/chriscoyier/pen/tIuBL" target="_blank">Light Javascript Table Filter</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				Developed by <a class="orange-text text-lighten-3" href="http://keisermedia.com">Keiser Media</a>
+			</div>
+		</div>
+	</footer>
+
+	<div id="message-modal" class="modal">
+		<div class="modal-content">
+			<h4></h4>
+			<p></p>
+		</div>
+		<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/materialize.min.js"></script>
+	<script src="js/materialize-stepper.js"></script>
+	<script src="js/ba-issemver.min.js"></script>
+	<script src="js/git-checked.js"></script>
+	<script src="js/papaparse.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/accounting.min.js"></script>
+	<script src="js/filtertable.js"></script>
+	<script src="js/ipc/toolbox.js"></script>
+	<script src="js/init.js"></script>
+
+</body>
+</html>

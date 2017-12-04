@@ -1,0 +1,121 @@
+html, body, #toolbox-intro {
+
+	height: 100%;
+	weight: 100%;
+
+}
+
+.btn-group {
+
+	position: relative;
+	display: inline-flex;
+	vertical-align: middle;
+
+}
+
+.btn-group .btn:not(:first-child):not(:last-child) {
+
+	border-radius: 0;
+
+}
+
+.btn-group .btn:first-child {
+
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+
+}
+
+.btn-group .btn:last-child {
+
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+
+}
+
+.btn-group > span {
+
+	position: relative;
+	left: -.15em;
+	z-index: 3;
+	font-size: 10px;
+
+}
+
+.btn-group > span:before {
+
+	position: absolute;
+	content: ' ';
+	width: .4em;
+	height: 100%;
+	background-color: rgba( 200, 200, 200, .95 );
+
+}
+
+.btn-group > span:after {
+
+	position: absolute;
+	width: 2em;
+	height: 2em;
+	top: 50%;
+	left: 50%;
+	margin-top: -.9em;
+	margin-left: -.8em;
+	line-height: 2em;
+	content: attr(data-divider-label);
+	background-color: rgba( 200, 200, 200, .95 );
+	border-radius: 50%;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+
+}
+
+#toolbox-intro {
+
+	display: flex;
+	align-items: center;
+	height: 100%;
+	background-color: rgba( 0, 0, 0, .7 );
+
+}
+
+#toolbox-intro > div {
+
+	margin: auto;
+
+}
+
+.tool {
+
+	display: none;
+
+}
+
+.step-actions {
+
+	bottom: inherit !important;
+
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
+}
