@@ -3,7 +3,7 @@
 	$(function(){
 
 		var gitchecked = new gitChecked({
-			version: 	'1.1.0',
+			version: 	'1.2.0',
 		});
 
 		gitchecked.latest();
@@ -11,6 +11,7 @@
 		$('#format-data-stepper').activateStepper();
 		$('#generate-report-stepper').activateStepper();
 		$('#revise-report-stepper').activateStepper();
+		populate_dropdown('amendment-reason-cd', labels['amendment-reason-cd']);
 		$('select').material_select();
 		$('#cancellation-type-cd').parent().parent().hide();
 		$('.button-collapse').sideNav();

@@ -18,6 +18,17 @@ var raw_data,
 	control_data = [ 'Control', 'BATCH_ID', '19361150', 0, 0, 0, 0, 0, 0, 0, 0 ],
 	filtered_policies = [];
 
+function populate_dropdown( field_id, options ) {
+
+	var field_options = '';
+
+	for( i = 0; i < options.length; i++ )
+		field_options += '<option value="' + options[i][0] + '">' + options[i][0] + ' - ' + options[i][1] + '</option>';
+
+    document.getElementById( field_id ).innerHTML = field_options;
+
+}
+
 function ipc_error( element, message ) {
 
 	$(element).val('').trigger('autoresize').showError(message);
@@ -176,11 +187,7 @@ function validate_form_data() {
 
 				case 'Policy-AMENDMENT_REASON_CD':
 
-					if( ( 'CN' == $('#policy-transaction-type-cd').val() ) )
-						line[j] = $('#amendment-reason-cd').val();
-
-					else
-						line[j] = '';
+					line[j] = $('#amendment-reason-cd').val();
 
 					break;
 
